@@ -35,3 +35,16 @@ Since .env file is not saved for security reasons, please open "doc" folder and 
 The documentation can be found in "doc" folder, if Spotlight opens doc folder it will load all the OpenAPI configurations.
 
 ### Frontend
+- [ ] Navigation Bar
+- [ ] Footer
+- [ ] Landing Page
+- [ ] Articles
+- [ ] Article page
+- [ ] Community
+- [ ] Tips and Tricks
+- [ ] Diary
+- [ ] Quiz
+- [ ] Account Page
+- [ ] Sign In
+- [ ] Sign Up
+- [ ] Axios Connection
