@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  uid           String    @unique
+  createdAt     DateTime  @default(now())
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  password      String
+  role          UserRole  @default(User)
+  avatar        String?
+  firstName     String?
+  lastName      String?
+  dob           DateTime?
+  uni           String?
+  article       Article[]
+  post          Post[]
+  comment       Comment[]
+}
+
+model Key {
+  id   String  @id @map("_id")
+  kid  String  @unique
+  used Boolean @default(false)
+}
+
+model Article {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug      String   @unique
+  title     String
+  body      String
+  createdAt DateTime @default(now())
+  author    User     @relation(references: [id], fields: [authorId], onDelete: Cascade)
+  authorId  String   @db.ObjectId
+
+  comments Comment[]
+}
+
+model Post {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  body      String
+  createdAt DateTime @default(now())
+  author    User     @relation(references: [id], fields: [authorId], onDelete: Cascade)
+  authorId  String   @db.ObjectId
+
+  comments Comment[]
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  comment   String
+  createdAt DateTime @default(now())
+  author    User     @relation(references: [id], fields: [authorId], onDelete: Cascade)
+  authorId  String   @db.ObjectId
+
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String?
+  article   Article? @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  articleId String?
+}
+
+enum UserRole {
+  Author
+  User
+  Subscriber
+  Admin
+}

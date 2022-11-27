@@ -1,0 +1,669 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PaveMind",
+    "version": "1.0",
+    "description": "This is the main api for PaveMind"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000"
+    }
+  ],
+  "paths": {
+    "/user/register": {
+      "post": {
+        "summary": "Create New User",
+        "operationId": "post-user",
+        "responses": {},
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password",
+                  "confirmPassword"
+                ]
+              },
+              "examples": {}
+            }
+          },
+          "description": ""
+        }
+      },
+      "parameters": []
+    },
+    "/user/login": {
+      "post": {
+        "summary": "",
+        "operationId": "post-user-login",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/info": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "emailVerified": {
+                      "type": "boolean"
+                    },
+                    "role": {
+                      "type": "string",
+                      "default": "User"
+                    },
+                    "profile": {
+                      "type": "object",
+                      "properties": {
+                        "avatar": {
+                          "type": "string"
+                        },
+                        "firstName": {
+                          "type": "string"
+                        },
+                        "lastName": {
+                          "type": "string"
+                        },
+                        "dob": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "uni": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User is not logged in!"
+          }
+        },
+        "operationId": "get-user-loginStatus",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "/user/settings": {
+      "post": {
+        "summary": "",
+        "operationId": "post-user-settings",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "dob": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "uni": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/changePassword": {
+      "post": {
+        "summary": "",
+        "operationId": "post-user-changePassword",
+        "responses": {
+          "200": {
+            "description": "Password, has been successfully changed!"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "oldPassword": {
+                    "type": "string",
+                    "format": "password"
+                  },
+                  "newPassword": {
+                    "type": "string",
+                    "format": "password"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                },
+                "required": [
+                  "oldPassword",
+                  "newPassword",
+                  "confirmPassword"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/community/all": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "operationId": "get-community-posts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "authorId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "comments": {
+                      "type": "object",
+                      "properties": {
+                        "comment": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "authorId": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "x-internal": false
+      },
+      "parameters": []
+    },
+    "/community/{id}": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "operationId": "get-community-post",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "authorId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "comments": {
+                      "type": "object",
+                      "properties": {
+                        "comment": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "authorId": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/community/post/new": {
+      "parameters": [],
+      "post": {
+        "summary": "",
+        "operationId": "post-community-post-new",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "body"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "description": ""
+      }
+    },
+    "/community/{postId}/comment/new": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "postId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "",
+        "operationId": "post-post-postId-comment-new",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "comment": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "comment"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/article/all": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {},
+        "operationId": "get-article-articles",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+                    "title": "string",
+                    "body": "string",
+                    "createdAt": "2019-08-24T14:15:22Z",
+                    "authorId": "ee6f7132-bd0a-4fcd-83b3-a8022377067b",
+                    "comments": {
+                      "comment": "string",
+                      "createdAt": "2019-08-24T14:15:22Z",
+                      "authorId": "string"
+                    }
+                  }
+                },
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "authorId": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/article/{id}": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {},
+        "operationId": "get-article-article",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+                    "title": "string",
+                    "body": "string",
+                    "createdAt": "2019-08-24T14:15:22Z",
+                    "authorId": "ee6f7132-bd0a-4fcd-83b3-a8022377067b",
+                    "comments": {
+                      "comment": "string",
+                      "createdAt": "2019-08-24T14:15:22Z",
+                      "authorId": "string"
+                    }
+                  }
+                },
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "authorId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "comments": {
+                    "type": "object",
+                    "properties": {
+                      "comment": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "authorId": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/article/new": {
+      "parameters": [],
+      "post": {
+        "summary": "",
+        "operationId": "post-article-new",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "slug": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "body"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "description": "**Requires \"Author\" Role**"
+      }
+    },
+    "/article/{articleId}/comment/new": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "articleId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "",
+        "operationId": "post-article-articleId-comment-new",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "comment": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "comment"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "description": ""
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "requestBodies": {},
+    "securitySchemes": {
+      "Authorization": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
