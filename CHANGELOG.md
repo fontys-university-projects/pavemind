@@ -1,3 +1,6 @@
+# 0.1.1 (06.01.2022)
+Forgot to update the TODO
+
 # 0.1.0 (06.01.2022)
 - Added all the account pages
 - Added Articles overview

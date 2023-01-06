@@ -35,16 +35,16 @@ Since .env file is not saved in "pavemind-express" folder for security reasons, 
 The documentation can be found in "pavemind-express/doc" folder, if Spotlight opens doc folder it will load all the OpenAPI configurations.
 
 ### Frontend
-- [ ] Navigation Bar
-- [ ] Footer
-- [ ] Landing Page
-- [ ] Articles
-- [ ] Article page
-- [ ] Community
-- [ ] Tips and Tricks
-- [ ] Diary
-- [ ] Quiz
-- [ ] Account Page
-- [ ] Sign In
-- [ ] Sign Up
+- [x] Navigation Bar
+- [x] Footer
+- [x] Landing Page
+- [x] Articles
+- [x] Article page
+- [x] Community
+- [x] Tips and Tricks
+- [x] Diary
+- [x] Quiz
+- [x] Account Page
+- [x] Sign In
+- [x] Sign Up
 - [ ] Axios Connection
