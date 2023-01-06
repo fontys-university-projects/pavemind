@@ -9,16 +9,25 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.4",
+    "@heroicons/vue": "^2.0.13",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/typography": "^0.5.8",
+    "apexcharts": "^3.36.3",
     "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vue3-apexcharts": "^1.4.1"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
     "@vitejs/plugin-vue": "^3.2.0",
-    "@vue/eslint-config-prettier": "^7.0.0",
+    "autoprefixer": "^10.4.13",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
-    "prettier": "^2.7.1",
-    "vite": "^3.2.4"
+    "postcss": "^8.4.19",
+    "tailwindcss": "^3.2.4",
+    "vite": "^3.2.4",
+    "vite-svg-loader": "^4.0.0"
   }
 }

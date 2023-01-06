@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Since .env file is not saved for security reasons, please open "doc" folder and read INITIALIZATION.md
+Since .env file is not saved in "pavemind-express" folder for security reasons, please open "pavemind-express/doc" folder and read INITIALIZATION.md
 
 ## To-do
 ### Backend
@@ -32,7 +32,7 @@ Since .env file is not saved for security reasons, please open "doc" folder and 
 #### Documentation
 > The Documentation is using the OpenAPI Standard, which can be read by tools like Swagger, in this case I am using [Stoplight Studio](https://stoplight.io/studio). Which makes documentation reading, writing and API testing easier.
 
-The documentation can be found in "doc" folder, if Spotlight opens doc folder it will load all the OpenAPI configurations.
+The documentation can be found in "pavemind-express/doc" folder, if Spotlight opens doc folder it will load all the OpenAPI configurations.
 
 ### Frontend
 - [ ] Navigation Bar
