@@ -1,3 +1,10 @@
+# 0.2.0 (16.01.2022)
+- Added Readme.md for both backend and frontend
+- Fixed any glitches with backend
+- Fixed any glitches with frontend (except few, but they require Vite's patching)
+- Updated API Doc
+- Added Production Links 
+
 # 0.1.1 (06.01.2022)
 Forgot to update the TODO
 
