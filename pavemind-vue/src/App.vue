@@ -10,5 +10,5 @@ import Footer from './components/Footer.vue'
   </header>
 
   <RouterView />
-  <Footer />
+  <Footer v-if="$route.path !== '/login' && $route.path !== '/register'" />
 </template>

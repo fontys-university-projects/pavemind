@@ -13,15 +13,40 @@ class communityService {
                 title: true,
                 body: true,
                 createdAt: true,
-                authorId: true,
+                author: {
+                    select: {
+                        firstName: true,
+                        lastName: true,
+                        avatar: true,
+                        role: true,
+                    }
+                },
                 comments: {
                     select: {
                         comment: true,
                         createdAt: true,
-                        authorId: true,
-                    }
+                        author: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                                avatar: true,
+                                role: true,
+                            }
+                        },
+                    },
+                    orderBy: [
+                        {
+                            createdAt: 'asc',
+                        },
+                    ]
                 }
-            }
+                
+            },
+            orderBy: [
+                {
+                    createdAt: 'desc',
+                },
+            ]
         })
         return posts
     }
@@ -38,15 +63,35 @@ class communityService {
                 title: true,
                 body: true,
                 createdAt: true,
-                authorId: true,
+                author: {
+                    select: {
+                        firstName: true,
+                        lastName: true,
+                        avatar: true,
+                        role: true,
+                    }
+                },
                 comments: {
                     select: {
                         comment: true,
                         createdAt: true,
-                        authorId: true,
-                    }
+                        author: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                                avatar: true,
+                                role: true,
+                            }
+                        },
+                    },
+                    orderBy: [
+                        {
+                            createdAt: 'asc',
+                        },
+                    ]
                 }
-            }
+                
+            },
         })
         return post
     }

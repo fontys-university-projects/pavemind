@@ -53,24 +53,24 @@ class articleController {
         }
     }
 
-    static commentCreate = async (req, res, next) => {
+    // static commentCreate = async (req, res, next) => {
 
-        try {
-            const body = req.body
-            const usr = req.user
-            const articleId = {articleId: req.params.articleId}
-            const merge = {...body, ...articleId, ...usr}
-            const data = await article.commentCreate(merge)
-            res.status(200).json({
-                status: true,
-                message: "Comment Creation",
-                data
-            })
-        } catch (e) {
-            next(createError(e.statusCode, e.message))
-            console.log(e)
-        }
-    }
+    //     try {
+    //         const body = req.body
+    //         const usr = req.user
+    //         const articleId = {articleId: req.params.articleId}
+    //         const merge = {...body, ...articleId, ...usr}
+    //         const data = await article.commentCreate(merge)
+    //         res.status(200).json({
+    //             status: true,
+    //             message: "Comment Creation",
+    //             data
+    //         })
+    //     } catch (e) {
+    //         next(createError(e.statusCode, e.message))
+    //         console.log(e)
+    //     }
+    // }
 }
 
 module.exports = articleController

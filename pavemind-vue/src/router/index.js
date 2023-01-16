@@ -1,4 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
+import { useUserStore } from "../store/user";
+import { useUniStore } from "../store/uni";
+
 import HomeView from '../views/HomeView.vue'
 import ArticlesView from '../views/ArticlesView.vue'
 import ArticleView from '../views/ArticleView.vue'
@@ -29,19 +33,20 @@ const router = createRouter({
       component: ArticlesView
     },
     {
-      path: '/article',
+      path: '/article/:id',
       name: 'article',
       component: ArticleView
     },
     {
       path: '/community',
       name: 'community',
-      component: CommunityView
+      component: CommunityView,
     },
     {
       path: '/diary',
       name: 'diary',
-      component: DiaryView
+      component: DiaryView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/pricing',
@@ -52,9 +57,11 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView,
+      meta: { requiresAuth: true },
       children: [
         {
           path: '',
+          name: 'main',
           component: AccountView,
         },
         {
@@ -84,4 +91,16 @@ const router = createRouter({
   ]
 })
 
+
+router.beforeEach((to) => {
+
+  const userStore = useUserStore()
+  const uniStore = useUniStore()
+
+  userStore.fetchUser()
+  userStore.fetchDiary()
+  uniStore.fetchUni()
+
+  if (to.meta.requiresAuth && !userStore.isLoggedIn) return '/'
+})
 export default router

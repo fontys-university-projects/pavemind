@@ -2,4 +2,4 @@ The controllers is that one folder which tells how the router request is going t
 
 Quite on Quote
 
-The next folder is controllers, which will house all the controllers needed for the application. These controller methods get the request from the routes and convert them to HTTP responses with the use of any middleware as necessary.
+>The next folder is controllers, which will house all the controllers needed for the application. These controller methods get the request from the routes and convert them to HTTP responses with the use of any middleware as necessary.

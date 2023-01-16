@@ -20,10 +20,10 @@
                 <div class="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
                     <div class="flex items-center flex-shrink-0">
                         <img class="block w-auto h-10 lg:hidden"
-                             src="../assets/logo-with-text-horizontal.svg"
+                             src="/logo-with-text-horizontal.svg"
                              alt="Your Company" />
                         <img class="hidden w-auto h-10 lg:block"
-                             src="../assets/logo-with-text-horizontal.svg"
+                             src="/logo-with-text-horizontal.svg"
                              alt="Your Company" />
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-4">
@@ -35,6 +35,7 @@
                         <router-link to="/community"
                                      class="inline-flex items-center px-1 pt-1 text-base font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">Community</router-link>
                         <router-link to="/diary"
+                                     v-if="userStore.isLoggedIn"
                                      class="inline-flex items-center px-1 pt-1 text-base font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">Diary</router-link>
                         <router-link to="/pricing"
                                      class="inline-flex items-center px-1 pt-1 text-base font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">Pricing</router-link>
@@ -51,13 +52,14 @@
 
                     <!-- Profile dropdown -->
                     <Menu as="div"
-                          class="relative ml-3">
+                          class="relative ml-3"
+                          v-if="userStore.isLoggedIn">
                         <div>
                             <MenuButton
                                         class="flex text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-sea-900 focus:ring-offset-2">
                                 <span class="sr-only">Open user menu</span>
-                                <img class="w-8 h-8 rounded-full"
-                                     src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                <img class="object-cover w-8 h-8 rounded-full"
+                                     :src="userStore.user.avatar"
                                      alt="" />
                             </MenuButton>
                         </div>
@@ -71,17 +73,47 @@
                                        class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <MenuItem v-slot="{ active }">
                                 <router-link to="profile"
-                                   :class="[
-                                       active ? 'bg-gray-100' : '',
-                                       'block px-4 py-2 text-sm text-gray-700',
-                                   ]">Your Profile</router-link>
+                                             :class="[
+                                                 active ? 'bg-gray-100' : '',
+                                                 'block px-4 py-2 text-sm text-gray-700',
+                                             ]">Your Profile</router-link>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                   :class="[
-                                       active ? 'bg-gray-100' : '',
-                                       'block px-4 py-2 text-sm text-gray-700',
-                                   ]">Sign out</a>
+                                <button @click="signOut"
+                                        :class="[
+                                            active ? 'bg-gray-100' : '',
+                                            'block px-4 py-2 text-sm text-gray-700',
+                                        ]">Sign out</button>
+                                </MenuItem>
+                            </MenuItems>
+                        </transition>
+                    </Menu>
+
+                    <Menu as="div"
+                          class="relative ml-3"
+                          v-if="!userStore.isLoggedIn">
+                        <div>
+                            <MenuButton
+                                        class="flex text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-sea-900 focus:ring-offset-2">
+                                <span class="sr-only">Open user menu</span>
+                                <UserIcon class="w-8 h-8 text-gray-600 rounded-full bg-gray-300/70" />
+                            </MenuButton>
+                        </div>
+                        <transition enter-active-class="transition duration-200 ease-out"
+                                    enter-from-class="transform scale-95 opacity-0"
+                                    enter-to-class="transform scale-100 opacity-100"
+                                    leave-active-class="transition duration-75 ease-in"
+                                    leave-from-class="transform scale-100 opacity-100"
+                                    leave-to-class="transform scale-95 opacity-0">
+                            <MenuItems
+                                       class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <MenuItem v-slot="{ active }">
+                                <router-link to="/login"
+                                             class="block px-4 py-2 text-sm text-gray-700">Sign In</router-link>
+                                </MenuItem>
+                                <MenuItem v-slot="{ active }">
+                                <router-link to="/register"
+                                             class="block px-4 py-2 text-sm text-gray-700">Sign Up</router-link>
                                 </MenuItem>
                             </MenuItems>
                         </transition>
@@ -98,26 +130,27 @@
                 </DisclosureButton>
                 <DisclosureButton as="div">
                     <router-link class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-                                 to="/articles">Articles</router-link>
+                                 to="articles">Articles</router-link>
                 </DisclosureButton>
                 <DisclosureButton as="div">
                     <router-link class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-                                 to="/community">Community</router-link>
+                                 to="community">Community</router-link>
                 </DisclosureButton>
                 <DisclosureButton as="div">
                     <router-link class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-                                 to="/diary">Diary</router-link>
+                                 v-if="userStore.isLoggedIn"
+                                 to="diary">Diary</router-link>
                 </DisclosureButton>
                 <DisclosureButton as="div">
                     <router-link class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-                                 to="/pricing">Pricing</router-link>
+                                 to="pricing">Pricing</router-link>
                 </DisclosureButton>
             </div>
         </DisclosurePanel>
     </Disclosure>
 </template>
 
-<script setup>
+<script>
 import {
     Disclosure,
     DisclosureButton,
@@ -128,6 +161,35 @@ import {
     MenuItems,
 } from "@headlessui/vue";
 import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { UserIcon } from "@heroicons/vue/20/solid";
+import { useUserStore } from "../store/user";
+import logoSvg from '/logo-with-text-horizontal.svg'
+
+
+export default {
+    components: {
+        Disclosure,
+        DisclosureButton,
+        DisclosurePanel,
+        Menu,
+        MenuButton,
+        MenuItem,
+        MenuItems,
+        Bars3BottomLeftIcon,
+        BellIcon,
+        XMarkIcon,
+        UserIcon,
+    },
+    setup() {
+        const userStore = useUserStore();
+        return { userStore };
+    },
+    methods: {
+        async signOut() {
+            localStorage.removeItem('token');
+        }
+    }
+}
 </script>
 
 <style scoped>

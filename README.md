@@ -1,5 +1,13 @@
 # PaveMind
 
+## Production Links
+
+[Frontend](https://pavemind.fhict-dev.com/)
+
+[Backend](https://pavemind-api.fhict-dev.com/)
+
+[API Documentation](https://pavemind-doc.fhict-dev.com/#/)
+
 ## Getting Started
 
 Since .env file is not saved in "pavemind-express" folder for security reasons, please open "pavemind-express/doc" folder and read INITIALIZATION.md
@@ -16,13 +24,13 @@ Since .env file is not saved in "pavemind-express" folder for security reasons, 
 - [x] Sign Up
 - [x] Profile Management
 - [x] Password Management
-- [ ] Password Reset
+- [x] Password Reset
 - [x] User Info
 ##### Articles
 - [x] List All Articles
 - [x] List Specific Article
 - [x] Create Article
-- [x] Comment on Article
+~~- [x] Comment on Article~~ (Although implemented, I decided not to add it)
 ##### Community
 - [x]  List all posts
 - [x]  List Specific Post
@@ -33,6 +41,8 @@ Since .env file is not saved in "pavemind-express" folder for security reasons, 
 > The Documentation is using the OpenAPI Standard, which can be read by tools like Swagger, in this case I am using [Stoplight Studio](https://stoplight.io/studio). Which makes documentation reading, writing and API testing easier.
 
 The documentation can be found in "pavemind-express/doc" folder, if Spotlight opens doc folder it will load all the OpenAPI configurations.
+
+Note the API documentation is already hosted on https://pavemind-doc.fhict-dev.com/#/
 
 ### Frontend
 - [x] Navigation Bar
@@ -47,4 +57,5 @@ The documentation can be found in "pavemind-express/doc" folder, if Spotlight op
 - [x] Account Page
 - [x] Sign In
 - [x] Sign Up
-- [ ] Axios Connection
+- [x] Axios Connection
+- [x] ApexChart integration

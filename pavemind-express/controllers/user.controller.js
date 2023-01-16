@@ -49,6 +49,53 @@ class userController {
         }
     }
 
+    static uni = async (req, res, next) => {
+        try {
+            const data = await user.uni(req.user)
+            res.status(200).json({
+                status: true,
+                message: "Key Info",
+                data
+            })
+        } catch (e) {
+            next(createError(e.statusCode, e.message))
+            console.log(e)
+        }
+    }
+
+    static getDiary = async (req, res, next) => {
+        try {
+            const data = await user.getDiary(req.user)
+            res.status(200).json({
+                status: true,
+                message: "User Diary",
+                data
+            })
+        } catch (e) {
+            next(createError(e.statusCode, e.message))
+            console.log(e)
+        }
+    }
+
+    static postDiary = async (req, res, next) => {
+
+        try {
+            const body = req.body
+            const usr = req.user
+            const merge = {...body, ...usr}
+            const data = await user.postDiary(merge)
+            res.status(200).json({
+                status: true,
+                message: "User Diary",
+                data
+            })
+        } catch (e) {
+            // next(createError(e.statusCode, e.message))
+            console.log(e)
+        }
+    }
+
+
     static settings = async (req, res, next) => {
 
         try {

@@ -21,29 +21,31 @@ model User {
   avatar        String?
   firstName     String?
   lastName      String?
+  about         String?
   dob           DateTime?
-  uni           String?
+  activationKey String?
   article       Article[]
   post          Post[]
   comment       Comment[]
+  diary         Diary[]
 }
 
 model Key {
-  id   String  @id @map("_id")
-  kid  String  @unique
-  used Boolean @default(false)
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  kid      String @unique
+  uni      String
+  uniEmail String @unique
 }
 
 model Article {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   slug      String   @unique
+  thumbnail String
   title     String
   body      String
   createdAt DateTime @default(now())
   author    User     @relation(references: [id], fields: [authorId], onDelete: Cascade)
   authorId  String   @db.ObjectId
-
-  comments Comment[]
 }
 
 model Post {
@@ -65,14 +67,24 @@ model Comment {
   authorId  String   @db.ObjectId
 
   post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    String?
-  article   Article? @relation(fields: [articleId], references: [id], onDelete: Cascade)
-  articleId String?
+  postId    String?  @db.ObjectId
+}
+
+model Diary {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  feeling   Int?
+  q1        Int?
+  q2        Int?
+  q3        Int?
+  q4        Int?
+  createdAt DateTime @default(now())
+  owner     User     @relation(references: [id], fields: [ownerId], onDelete: Cascade)
+  ownerId   String   @db.ObjectId
 }
 
 enum UserRole {
   Author
   User
-  Subscriber
+  Premium
   Admin
 }

@@ -8,7 +8,7 @@ const multer = require('multer')
 
 
 var corsOptions = {
-    origin: "http://localhost:8080"
+    origin: [process.env.ORIGIN]
   }
 
 app.use(cors(corsOptions))
@@ -26,6 +26,7 @@ if (!databaseUrl) {
   console.log('Example: DATABASE_URL="mongodb+srv://user:pass@domain:27017/database" \n')
   console.log('For more information, check out /doc/INITIALIZATION.md ')
 }
+
 const port = process.env.PORT || 5000
 let server;
 (async () => {

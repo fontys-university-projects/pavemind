@@ -6,21 +6,28 @@ const createError = require('http-errors')
 
 class articleService {
     static async articles() {
-        
-       const articles = await prisma.article.findMany({
+
+        const articles = await prisma.article.findMany({
             select: {
                 id: true,
                 slug: true,
                 title: true,
+                thumbnail: true,
                 body: true,
                 createdAt: true
-            }
+            },
+            orderBy: [
+                {
+                    createdAt: 'desc',
+                },
+            ]
+
         })
         return articles
     }
 
     static async article(id) {
-       const article = await prisma.article.findUnique({
+        const article = await prisma.article.findUnique({
             where: {
                 id: id
             },
@@ -28,15 +35,9 @@ class articleService {
                 id: true,
                 slug: true,
                 title: true,
+                thumbnail: true,
                 body: true,
-                createdAt: true,
-                comments: {
-                    select: {
-                        comment: true,
-                        createdAt: true,
-                        authorId: true,
-                    }
-                }
+                createdAt: true
             }
         })
         return article
@@ -44,14 +45,14 @@ class articleService {
 
     static async articleCreate(data) {
         const { slug, title, body, uid } = data
-        
+
         const article = await prisma.article.findUnique({
             where: {
                 slug
             }
         })
 
-        if( article !== null) {
+        if (article !== null) {
             return createError.BadRequest('This slug already exists!')
         }
         const details = [slug, title, body]
@@ -59,7 +60,7 @@ class articleService {
         details.forEach(updateDetails)
 
         async function updateDetails(item) {
-            if(item === null) {
+            if (item === null) {
             } else {
                 return createError.BadRequest('The required fields are "slug, title, body"!')
             }
@@ -69,7 +70,7 @@ class articleService {
                 uid
             }
         })
-        
+
         await prisma.article.create({
             data: {
                 slug: slug,
@@ -85,48 +86,48 @@ class articleService {
 
         return
     }
-    
-    static async commentCreate(data) {
-        const { comment, uid, articleId } = data
 
-        const article = await prisma.article.findUnique({
-            where: {
-                id: articleId
-            }
-        })
+//     static async commentCreate(data) {
+//         const { comment, uid, articleId } = data
 
-        if(!article) {
-            return createError.NotFound('Article not found!')
-        }
+//         const article = await prisma.article.findUnique({
+//             where: {
+//                 id: articleId
+//             }
+//         })
 
-        if( comment === null) {
-            return createError.BadRequest('You are required to place a comment')
-        }
-        const user = await prisma.user.findUnique({
-            where: {
-                uid
-            }
-        })
+//         if (!article) {
+//             return createError.NotFound('Article not found!')
+//         }
+
+//         if (comment === null) {
+//             return createError.BadRequest('You are required to place a comment')
+//         }
+//         const user = await prisma.user.findUnique({
+//             where: {
+//                 uid
+//             }
+//         })
 
 
-        await prisma.comment.create({
-            data: {
-                comment: comment,
-                article: {
-                    connect: {
-                        id: article.id
-                    }
-                },
-                author: {
-                    connect: {
-                        id: user.id
-                    }
-                }
-            }
-        })
+//         await prisma.comment.create({
+//             data: {
+//                 comment: comment,
+//                 article: {
+//                     connect: {
+//                         id: article.id
+//                     }
+//                 },
+//                 author: {
+//                     connect: {
+//                         id: user.id
+//                     }
+//                 }
+//             }
+//         })
 
-        return
-    }
+//         return
+//     }
 }
 
 module.exports = articleService

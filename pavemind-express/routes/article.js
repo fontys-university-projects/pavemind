@@ -10,7 +10,7 @@ router.get('/:articleId', article.article)
 
 router.post('/new', auth, role('Author'), article.articleCreate)
 
-router.post('/:articleId/comment/new', auth, article.commentCreate)
+// router.post('/:articleId/comment/new', auth, article.commentCreate)
 
 
 module.exports = router

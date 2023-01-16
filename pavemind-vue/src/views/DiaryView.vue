@@ -19,16 +19,22 @@
                 <div
                      class="grid grid-cols-1 border-t border-gray-200 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
                   <div class="flex justify-center px-6 py-5">
-                    <SadIcon class="w-20 h-20 fill-scarlet-600"
+                    <button @click="submitFeeling(1)">
+                      <SadIcon class="w-20 h-20 fill-scarlet-600"
                              aria-hidden="true" />
+                    </button>
                   </div>
                   <div class="flex justify-center px-6 py-5">
-                    <NeutralIcon class="w-20 h-20 fill-amber-600"
+                    <button @click="submitFeeling(2)">
+                      <NeutralIcon class="w-20 h-20 fill-amber-600"
                                  aria-hidden="true" />
+                    </button>
                   </div>
                   <div class="flex justify-center px-6 py-5">
-                    <HappyIcon class="w-20 h-20 fill-emerald-600"
+                    <button @click="submitFeeling(3)">
+                      <HappyIcon class="w-20 h-20 fill-emerald-600"
                                aria-hidden="true" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -36,11 +42,14 @@
 
             <section aria-labelledby="profile-overview-title">
               <div class="overflow-hidden bg-white rounded-lg shadow">
-                <div class="p-6 bg-white">
+                <form @submit.prevent="submitEmotions">
+                  <div class="p-6 bg-white">
                   <div class="pb-4 sm:flex sm:items-center sm:justify-between">
                     <div class="sm:flex sm:space-x-5">
-                      <p class="text-lg font-medium text-gray-600">Extra Questions (optional) <span class="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-sea-800">Premium</span></p>
-                      
+                      <p class="text-lg font-medium text-gray-600">Extra Questions (optional) <span
+                              class="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-sea-800">Premium</span>
+                      </p>
+
                     </div>
                   </div>
                   <div>
@@ -62,8 +71,9 @@
                              type="range"
                              min="0"
                              max="8"
-                             value="4"
+                             placeholder="4"
                              step="1"
+                             v-model="q1"
                              class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-sea-300 accent-sea-900">
                     </div>
                     <div class="pb-2">
@@ -84,8 +94,9 @@
                              type="range"
                              min="0"
                              max="8"
-                             value="4"
+                             placeholder="4"
                              step="1"
+                             v-model="q2"
                              class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-sea-300 accent-sea-900">
                     </div>
                     <div class="pb-2">
@@ -107,8 +118,9 @@
                              type="range"
                              min="0"
                              max="8"
-                             value="4"
+                             placeholder="4"
                              step="1"
+                             v-model="q3"
                              class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-sea-300 accent-sea-900">
                     </div>
                     <div class="pb-2">
@@ -129,16 +141,18 @@
                              type="range"
                              min="0"
                              max="8"
-                             value="4"
+                             placeholder="4"
                              step="1"
+                             v-model="q4"
                              class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-sea-300 accent-sea-900">
                     </div>
                   </div>
                 </div>
                 <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
-                        <button type="submit"
-                                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-sea-700 hover:bg-sea-600 focus:outline-none focus:ring-2 focus:ring-sea-600 focus:ring-offset-2">Save</button>
+                  <button type="submit"
+                          class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-sea-700 hover:bg-sea-600 focus:outline-none focus:ring-2 focus:ring-sea-600 focus:ring-offset-2">Save</button>
                 </div>
+                </form>
               </div>
             </section>
           </div>
@@ -201,8 +215,13 @@
               <div class="overflow-hidden bg-white rounded-lg shadow">
                 <div class="p-6">
                   <h2 class="text-base font-medium text-gray-900"
-                      id="recent-hires-title">Emotional Map <span class="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-sea-800">Premium</span></h2>
-                  <p>This graph shows your overall emotions over the past 30 days, it can help you notice problems you are experiencing and possibly work on them (the recommended number all your emotions should be is 5)</p>
+                      id="recent-hires-title">Emotional Map<span
+                          class="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-sea-800">Premium</span>
+                  </h2>
+                  <p>This graph shows your overall emotions over the past 15 days, it can help you notice problems you
+                    are experiencing and possibly work on them (the recommended number of all your emotions should be
+                    around 5)
+                  </p>
                   <div class="flow-root mt-6">
                     <div id="chart">
                       <apexchart type="radar"
@@ -220,54 +239,40 @@
     </main>
   </div>
 </template>
-  
-<script setup>
+
+<script>
 import SadIcon from '@/assets/faces/sad.svg'
 import NeutralIcon from '@/assets/faces/neutral.svg'
 import HappyIcon from '@/assets/faces/happy.svg'
-</script>
-
-<script>
+import { useUserStore } from "../store/user";
 import VueApexCharts from "vue3-apexcharts";
 export default {
   components: {
     apexchart: VueApexCharts,
-  },
-  methods: {
-    updateData: function (timeline) {
-      this.selection = timeline
-
-      switch (timeline) {
-        case 'one_month':
-          this.$refs.chart.zoomX(
-            (new Date().setDate(new Date().getDate() - 30)),
-            Date.now()
-          )
-          break
-        case 'six_months':
-          this.$refs.chart.zoomX(
-            (new Date().setDate(new Date().getDate() - 180)),
-            Date.now()
-          )
-          break
-        case 'one_year':
-          this.$refs.chart.zoomX(
-            (new Date().setDate(new Date().getDate() - 360)),
-            Date.now()
-          )
-          break
-        case 'all':
-          this.$refs.chart.zoomX(
-            new Date('23 Jan 2012').getTime(),
-            Date.now()
-          )
-          break
-        default:
-      }
-    }
+    SadIcon,
+    NeutralIcon,
+    HappyIcon
   },
   data: function () {
+    const userStore = useUserStore()
+    const feelings = []
+    
+    for (let x = 0; x < userStore.diary.diary.length; x++) {
+      feelings.push({
+        feeling: userStore.diary.diary[x].feeling,
+        date: userStore.diary.diary[x].createdAt
+        
+      });
+    }
+    var result = userStore.diary.diary.map(({ feeling, createdAt }) => ([ new Date(createdAt).getTime(), feeling ]));
     return {
+      userStore,
+      result,
+      feeling: null,
+      q1: 4,
+      q2: 4,
+      q3: 4,
+      q4: 4,
       chartOptions: {
         chart: {
           id: 'feelings-map',
@@ -341,23 +346,54 @@ export default {
           categories: ['Motivation', 'Enjoyment', 'Work/School', 'Support']
         }
       },
-
-
       selection: 'one_month',
       feelings: [{
-        data: [
-          [(new Date().setDate(new Date().getDate() - 1)), 2],
-          [(new Date().setDate(new Date().getDate() - 2)), 2],
-          [(new Date().setDate(new Date().getDate() - 3)), 1],
-          [(new Date().setDate(new Date().getDate() - 4)), 3],
-          [(new Date().setDate(new Date().getDate() - 5)), 1],
-
-        ]
+        data: result
       }],
       emotions: [{
-            data: [2, 6, 5, 8],
-          },],
+        data: [userStore.diary.emotions.q1, userStore.diary.emotions.q2, userStore.diary.emotions.q3, userStore.diary.emotions.q4],
+      },],
     };
+  },
+  methods: {
+    async submitFeeling(num) {
+      this.feeling = num
+      this.userStore.submitFeeling(this.feeling);
+
+    },
+    async submitEmotions() {
+      await this.userStore.submitEmotions(this.q1, this.q2, this.q3, this.q4);
+    },
+    updateData: function (timeline) {
+      this.selection = timeline
+      switch (timeline) {
+        case 'one_month':
+          this.$refs.chart.zoomX(
+            (new Date().setDate(new Date().getDate() - 30)),
+            Date.now()
+          )
+          break
+        case 'six_months':
+          this.$refs.chart.zoomX(
+            (new Date().setDate(new Date().getDate() - 180)),
+            Date.now()
+          )
+          break
+        case 'one_year':
+          this.$refs.chart.zoomX(
+            (new Date().setDate(new Date().getDate() - 360)),
+            Date.now()
+          )
+          break
+        case 'all':
+          this.$refs.chart.zoomX(
+            this.userStore.user.createdAt,
+            Date.now()
+          )
+          break
+        default:
+      }
+    }
   },
 };
 </script>

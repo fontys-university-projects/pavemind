@@ -10,12 +10,25 @@
                 <span class="block text-sea-900">PaveMind</span>
               </span>
             </h1>
-            <p class="mt-3 text-base font-normal text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">A platform, for people who are experiencing or have experienced burnout. 
-              PaveMind's mission is to provide a place where people can get educated on the problem and help each other.</p>
+            <p class="mt-3 text-base font-normal text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">A platform, for
+              people who are experiencing or have experienced burnout.
+              PaveMind's mission is to provide a place where people can get educated on the problem and help each other.
+            </p>
             <div class="mt-3 sm:mx-auto sm:max-w-lg sm:text-center lg:mx-0 lg:text-left">
-              <div class="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+              <div v-if="userStore.isLoggedIn == false"
+                   class="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                 <span class="text-base text-gray-600">
-                  New to PaveMind? Get started by <a href="#" class="font-semibold text-sea-900"><span class="absolute inset-0" aria-hidden="true" />registering <span aria-hidden="true">&rarr;</span></a>
+                  New to PaveMind? Get started by <router-link to="/register"
+                               class="font-semibold text-sea-900"><span class="absolute inset-0"
+                          aria-hidden="true" />registering <span aria-hidden="true">&rarr;</span></router-link>
+                </span>
+              </div>
+              <div v-if="userStore.isLoggedIn == true"
+                   class="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                <span class="text-base text-gray-600">
+                  Did you fill your Diary today? <router-link to="/diary"
+                     class="font-semibold text-sea-900"><span class="absolute inset-0"
+                          aria-hidden="true" />click here <span aria-hidden="true">&rarr;</span></router-link>
                 </span>
               </div>
               <p class="mt-3 text-sm text-gray-500">
@@ -29,8 +42,8 @@
                class="relative mt-12 sm:mx-auto sm:max-w-lg lg:col-span-6 lg:mx-0 lg:mt-0 lg:flex lg:max-w-none lg:items-center">
             <div class="relative w-full mx-auto rounded-lg shadow-lg lg:max-w-lg">
               <img class="relative block w-full overflow-hidden bg-white rounded-lg"
-                     src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=40"
-                     alt="" />
+                   src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=40"
+                   alt="" />
             </div>
           </div>
         </div>
@@ -38,56 +51,70 @@
     </div>
   </div>
   <svg class="waves"
-         xmlns="http://www.w3.org/2000/svg"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         viewBox="0 24 150 28"
-         preserveAspectRatio="none"
-         shape-rendering="auto">
-      <defs>
-        <path id="gentle-wave"
-              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-      </defs>
-      <g class="relative bottom-0 origin-bottom transform scale-75 parallax sm:scale-100">
-        <use xlink:href="#gentle-wave"
-             x="48"
-             y="0"
-             fill="rgba(130,147,178,0.7" />
-        <use xlink:href="#gentle-wave"
-             x="48"
-             y="3"
-             fill="rgba(130,147,178,0.5)" />
-        <use xlink:href="#gentle-wave"
-             x="48"
-             y="5"
-             fill="rgba(130,147,178,0.3)" />
-        <use xlink:href="#gentle-wave"
-             x="48"
-             y="6"
-             fill="#4D6491" />
-      </g>
-    </svg>
-    <div class="relative h-screen px-4 pt-16 pb-20 bg-white sm:px-6 lg:px-8 lg:pt-24 lg:pb-28">
+       xmlns="http://www.w3.org/2000/svg"
+       xmlns:xlink="http://www.w3.org/1999/xlink"
+       viewBox="0 24 150 28"
+       preserveAspectRatio="none"
+       shape-rendering="auto">
+    <defs>
+      <path id="gentle-wave"
+            d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+    </defs>
+    <g class="relative bottom-0 origin-bottom transform scale-75 parallax sm:scale-100">
+      <use xlink:href="#gentle-wave"
+           x="48"
+           y="0"
+           fill="rgba(130,147,178,0.7" />
+      <use xlink:href="#gentle-wave"
+           x="48"
+           y="3"
+           fill="rgba(130,147,178,0.5)" />
+      <use xlink:href="#gentle-wave"
+           x="48"
+           y="5"
+           fill="rgba(130,147,178,0.3)" />
+      <use xlink:href="#gentle-wave"
+           x="48"
+           y="6"
+           fill="#4D6491" />
+    </g>
+  </svg>
+  <div class="relative min-h-screen px-4 pt-16 pb-20 bg-white sm:px-6 lg:px-8 lg:pt-24 lg:pb-28">
     <div class="absolute inset-0">
       <div class="h-1/3 bg-gradient-to-b from-sea-900 via-sea-700 to-white sm:h-1/3" />
     </div>
     <div class="relative mx-auto max-w-7xl">
       <div class="text-center">
         <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Articles</h2>
-        <p class="max-w-2xl mx-auto mt-3 text-xl text-gray-200 sm:mt-4">Here are one of the three most important articles</p>
+        <p class="max-w-2xl mx-auto mt-3 text-xl text-gray-200 sm:mt-4">Here are one of the three most important
+          articles</p>
       </div>
-      <div class="grid max-w-lg gap-5 mx-auto mt-12 lg:gap-12 lg:max-w-6xl lg:grid-cols-3">
-        <div v-for="post in posts" :key="post.title" class="flex flex-col overflow-hidden rounded-lg shadow-lg">
-          <div class="flex-shrink-0">
-            <img class="object-cover w-full h-48" :src="post.imageUrl" alt="" />
+      <div class="grid max-w-sm gap-5 mx-auto mt-12 md:gap-3 md:max-w-6xl md:grid-cols-3">
+        <div v-for="post in articles.slice(0, 3)"
+             :key="post.title"
+             class="flex flex-col overflow-hidden rounded-lg shadow-lg">
+          <router-link :to="'/article/' + post.id">
+            <div class="flex-shrink-0">
+            <img class="object-cover w-full h-48"
+                 :src="post.thumbnail"
+                 alt="" />
           </div>
           <div class="flex flex-col justify-between flex-1 p-6 bg-white">
-            <div class="flex-1">
-              <a :href="post.href" class="block mt-2">
+            <div class="flex-1 block mt-2">
                 <p class="text-xl font-semibold text-gray-900">{{ post.title }}</p>
-                <p class="mt-3 text-base text-gray-500">{{ post.description }}</p>
-              </a>
+                <p class="mt-3 text-base text-gray-500 line-clamp-4">{{ post.body }}</p>
+            </div>
+            <div class="">
+              <div class="flex space-x-1 text-sm text-gray-500">
+                <span>Posted on</span>
+                <time :datetime="articles[0].createdAt">{{
+                  new
+                                  Date(articles[0].createdAt).toLocaleString().split(',')[0]
+                }}</time>
+              </div>
             </div>
           </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -96,28 +123,40 @@
     <!-- Header -->
     <div class="relative pb-32 bg-sea-600">
       <div class="absolute inset-0">
-        <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=60&&sat=-100" alt="" />
-        <div class="absolute inset-0 bg-sea-600 mix-blend-multiply" aria-hidden="true" />
+        <img class="object-cover w-full h-full"
+             src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=60&&sat=-100"
+             alt="" />
+        <div class="absolute inset-0 bg-sea-600 mix-blend-multiply"
+             aria-hidden="true" />
       </div>
       <div class="relative px-4 py-24 mx-auto max-w-7xl sm:py-32 sm:px-6 lg:px-8">
         <h1 class="text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl">About Us</h1>
-        <p class="max-w-3xl mt-6 text-xl text-gray-300">PaveMind's mission is to provide a platform, of which can help the users getting familiar with breakdown, and trying to prevent it, by giving you helpful resources and creating a community!</p>
+        <p class="max-w-3xl mt-6 text-xl text-gray-300">PaveMind's mission is to provide a platform, of which can help
+          the users getting familiar with breakdown, and trying to prevent it, by giving you helpful resources and
+          creating a community!</p>
       </div>
     </div>
 
     <!-- Overlapping cards -->
-    <section class="relative z-10 px-4 pb-32 mx-auto -mt-32 max-w-7xl sm:px-6 lg:px-8" aria-labelledby="contact-heading">
+    <section class="relative z-10 px-4 pb-32 mx-auto -mt-32 max-w-7xl sm:px-6 lg:px-8"
+             aria-labelledby="contact-heading">
       <div class="grid grid-cols-1 gap-y-20 lg:grid-cols-3 lg:gap-y-0 lg:gap-x-8">
-        <div v-for="link in supportLinks" :key="link.name" class="flex flex-col bg-white shadow-xl rounded-2xl">
+        <div v-for="link in supportLinks"
+             :key="link.name"
+             class="flex flex-col bg-white shadow-xl rounded-2xl">
           <div class="relative flex-1 px-6 pt-16 pb-8 md:px-8">
             <div class="absolute top-0 inline-block p-5 transform -translate-y-1/2 shadow-lg rounded-xl bg-sea-600">
-              <component :is="link.icon" class="w-6 h-6 text-white" aria-hidden="true" />
+              <component :is="link.icon"
+                         class="w-6 h-6 text-white"
+                         aria-hidden="true" />
             </div>
             <h3 class="text-xl font-medium text-gray-900">{{ link.name }}</h3>
             <p class="mt-4 text-base text-gray-500">{{ link.description }}</p>
           </div>
           <div class="p-6 rounded-bl-2xl rounded-br-2xl bg-gray-50 md:px-8">
-            <a :href="link.href" class="text-base font-medium text-sea-700 hover:text-sea-500">Take a look<span aria-hidden="true"> &rarr;</span></a>
+            <a :href="link.href"
+               class="text-base font-medium text-sea-700 hover:text-sea-500">Take a look<span aria-hidden="true">
+                &rarr;</span></a>
           </div>
         </div>
       </div>
@@ -176,11 +215,51 @@
     min-height: 40px;
   }
 }
-
 </style>
-<script setup>
-import { BookOpenIcon, UserGroupIcon, NewspaperIcon } from '@heroicons/vue/24/outline'
 
+<script>
+import { BookOpenIcon, UserGroupIcon, NewspaperIcon } from '@heroicons/vue/24/outline'
+import { useUserStore } from "../store/user";
+
+import axios from "axios"
+
+export default {
+  components: {
+    BookOpenIcon,
+    UserGroupIcon,
+    NewspaperIcon
+  },
+  data() {
+    const userStore = useUserStore();
+    return {
+      userStore,
+      articles: [],
+    }
+  },
+  methods: {
+    async updateInfo() {
+      await this.userStore.updateInfo(this.firstName, this.lastName, this.about);
+    },
+  },
+  beforeMount() {
+    axios
+      .get(import.meta.env.VITE_API_BACKEND_URL + '/article/all', {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        //Perform Success Action
+        this.articles = res.data.data;
+      })
+      .catch((err) => {
+        // error.response.status Check status code
+        console.log(err);
+      });
+  }
+}
+</script>
+<script setup>
 const supportLinks = [
   {
     name: 'Articles',

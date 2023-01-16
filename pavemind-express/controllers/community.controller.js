@@ -29,7 +29,7 @@ class communityController {
                 data
             })
         } catch (e) {
-            next(createError(e.statusCode, e.message))
+            // next(createError(e.statusCode, e.message))
             console.log(e)
         }
     }
@@ -66,7 +66,7 @@ class communityController {
                 data
             })
         } catch (e) {
-            // next(createError(e.statusCode, e.message))
+            next(createError(e.statusCode, e.message))
             console.log(e)
         }
     }

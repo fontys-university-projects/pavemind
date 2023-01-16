@@ -11,13 +11,13 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5000"
+      "url": "https://pavemind-api.fhict-dev.com"
     }
   ],
   "paths": {
     "/user/register": {
       "post": {
-        "summary": "Create New User",
+        "summary": "Sign Up",
         "operationId": "post-user",
         "responses": {
           "200": {
@@ -63,7 +63,7 @@
     },
     "/user/login": {
       "post": {
-        "summary": "",
+        "summary": "Log In",
         "operationId": "post-user-login",
         "requestBody": {
           "content": {
@@ -110,7 +110,7 @@
     },
     "/user/info": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "User Info",
         "tags": [
           "account "
         ],
@@ -177,7 +177,7 @@
     },
     "/user/uni": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "User University",
         "tags": [
           "account "
         ],
@@ -212,7 +212,7 @@
     },
     "/user/diary": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "User Diary",
         "tags": [
           "diary",
           "account "
@@ -309,7 +309,7 @@
       },
       "parameters": [],
       "post": {
-        "summary": "",
+        "summary": "Fill in User Diary",
         "operationId": "post-user-diary",
         "responses": {
           "200": {
@@ -371,7 +371,7 @@
     },
     "/user/settings": {
       "post": {
-        "summary": "",
+        "summary": "User Settings",
         "operationId": "post-user-settings",
         "responses": {
           "200": {
@@ -415,7 +415,7 @@
     },
     "/user/changePassword": {
       "post": {
-        "summary": "",
+        "summary": "Change Password",
         "operationId": "post-user-changePassword",
         "responses": {
           "200": {
@@ -458,13 +458,14 @@
         ],
         "description": "Password change request",
         "tags": [
-          "account "
+          "account ",
+          "auth"
         ]
       }
     },
     "/community/all": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Community posts",
         "tags": [
           "community"
         ],
@@ -577,7 +578,7 @@
     },
     "/community/{id}": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Community post",
         "tags": [
           "community"
         ],
@@ -646,7 +647,7 @@
     "/community/post/new": {
       "parameters": [],
       "post": {
-        "summary": "",
+        "summary": "Create Community Post",
         "operationId": "post-community-post-new",
         "responses": {
           "200": {
@@ -697,7 +698,7 @@
         }
       ],
       "post": {
-        "summary": "",
+        "summary": "Comment to Community Post",
         "operationId": "post-post-postId-comment-new",
         "responses": {
           "200": {
@@ -734,7 +735,7 @@
     },
     "/article/all": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Articles",
         "tags": [
           "articles"
         ],
@@ -825,7 +826,7 @@
     },
     "/article/{id}": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Article",
         "tags": [
           "articles"
         ],
@@ -890,7 +891,7 @@
     "/article/new": {
       "parameters": [],
       "post": {
-        "summary": "",
+        "summary": "Create Article",
         "operationId": "post-article-new",
         "responses": {
           "200": {
@@ -944,7 +945,7 @@
         }
       ],
       "post": {
-        "summary": "",
+        "summary": "Comment to Article",
         "operationId": "post-article-articleId-comment-new",
         "responses": {
           "200": {
